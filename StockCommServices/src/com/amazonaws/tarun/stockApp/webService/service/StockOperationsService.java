@@ -11,6 +11,7 @@ import javax.ws.rs.core.Response;
 
 import org.json.JSONObject;
 
+import com.amazonaws.tarun.stockApp.TechnicalIndicator.Calculation.QuoteApplication;
 import com.amazonaws.tarun.stockApp.TechnicalIndicator.Data.PurchasedStockData;
 import com.amazonaws.tarun.stockApp.externalOperations.StockOperations;
 import com.sun.jersey.api.client.ClientResponse;
@@ -74,25 +75,6 @@ public class StockOperationsService {
 		return Response.status(200).entity("Success").build();
 	}
 	
-	/*@GET
-	@Path("/sellStock")
-	@Produces("text/plain")
-	public Response GetPurchasedStockDetails() {
-		//String response = "Failure";
-		
-		System.out.println("Stock Code -> "+stockCode);
-		System.out.println("soldQuantity -> "+soldQuantity);
-				
-		PurchasedStockData objPurchasedStockData = new PurchasedStockData();
-		objPurchasedStockData.stockCode = stockCode;
-		objPurchasedStockData.purchasedQuantity = Integer.parseInt(soldQuantity.trim());
-		
-		PurchasedStocksOperations objAddPurchasedStocks = new PurchasedStocksOperations();
-		//objAddPurchasedStocks.addPurchasedStock(objPurchasedStockData);
-		//return "Pass";
-		return Response.status(200).entity("Success").build();
-	}*/
-	
 	@GET
 	@Path("/StockDetails")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -107,6 +89,127 @@ public class StockOperationsService {
 		//objAddPurchasedStocks.addPurchasedStock(objPurchasedStockData);
 		//return "Pass";
 		return stockDetails.toString();
+		//return Response.status(200).entity("Success").build();
+	}
+	
+	@GET
+	@Path("/CalculateMA")
+	@Produces("text/plain")
+	public Response CalculateMA(@QueryParam("targetDate") String targetDate) {
+		
+		QuoteApplication objQuoteApplication = new QuoteApplication();
+		objQuoteApplication.invokeAction("movingaveragecalculation", targetDate);
+		return Response.status(200).entity("Success").build();
+		//return Response.status(200).entity("Success").build();
+	}
+	
+	@GET
+	@Path("/CalculateATR")
+	@Produces("text/plain")
+	public Response CalculateATR(@QueryParam("targetDate") String targetDate) {
+		
+		QuoteApplication objQuoteApplication = new QuoteApplication();
+		objQuoteApplication.invokeAction("calculateATR", targetDate);
+		return Response.status(200).entity("Success").build();
+		//return Response.status(200).entity("Success").build();
+	}
+	
+	@GET
+	@Path("/CalculateBB")
+	@Produces("text/plain")
+	public Response CalculateBB(@QueryParam("targetDate") String targetDate) {
+		
+		QuoteApplication objQuoteApplication = new QuoteApplication();
+		objQuoteApplication.invokeAction("calculateBB", targetDate);
+		return Response.status(200).entity("Success").build();
+		//return Response.status(200).entity("Success").build();
+	}
+	
+	@GET
+	@Path("/CalculateRSI")
+	@Produces("text/plain")
+	public Response CalculateRSI(@QueryParam("targetDate") String targetDate) {
+		
+		QuoteApplication objQuoteApplication = new QuoteApplication();
+		objQuoteApplication.invokeAction("calculateRSI", targetDate);
+		return Response.status(200).entity("Success").build();
+		//return Response.status(200).entity("Success").build();
+	}	
+	
+	@GET
+	@Path("/CollectQuoteData")
+	@Produces("text/plain")
+	public Response CollectQuoteData(@QueryParam("targetDate") String targetDate) {
+		
+		QuoteApplication objQuoteApplication = new QuoteApplication();
+		objQuoteApplication.invokeAction("quote", targetDate);
+		return Response.status(200).entity("Success").build();
+		//return Response.status(200).entity("Success").build();
+	}
+	
+	@GET
+	@Path("/CalculateStochasticOscillator")
+	@Produces("text/plain")
+	public Response CalculateStochasticOscillator(@QueryParam("targetDate") String targetDate) {
+		
+		QuoteApplication objQuoteApplication = new QuoteApplication();
+		objQuoteApplication.invokeAction("calculateStochastic", targetDate);
+		return Response.status(200).entity("Success").build();
+		//return Response.status(200).entity("Success").build();
+	}	
+	
+	@GET
+	@Path("/CalculateMACD")
+	@Produces("text/plain")
+	public Response CalculateMACD(@QueryParam("targetDate") String targetDate) {
+		
+		QuoteApplication objQuoteApplication = new QuoteApplication();
+		objQuoteApplication.invokeAction("calculateMACD", targetDate);
+		return Response.status(200).entity("Success").build();
+		//return Response.status(200).entity("Success").build();
+	}	
+	
+	@GET
+	@Path("/GenerateCombinedIndicationMail")
+	@Produces("text/plain")
+	public Response GenerateCombinedIndicationMail(@QueryParam("targetDate") String targetDate) {
+		
+		QuoteApplication objQuoteApplication = new QuoteApplication();
+		objQuoteApplication.invokeAction("combined", targetDate);
+		return Response.status(200).entity("Success").build();
+		//return Response.status(200).entity("Success").build();
+	}
+	
+	@GET
+	@Path("/GenerateCombinedIndicationPortal")
+	@Produces("text/plain")
+	public Response GenerateCombinedIndicationPortal(@QueryParam("targetDate") String targetDate) {
+		
+		QuoteApplication objQuoteApplication = new QuoteApplication();
+		objQuoteApplication.invokeAction("combinedForPortal", targetDate);
+		return Response.status(200).entity("Success").build();
+		//return Response.status(200).entity("Success").build();
+	}
+	
+	@GET
+	@Path("/GenerateCombinedIndicationFromMACDMail")
+	@Produces("text/plain")
+	public Response GenerateCombinedIndicationFromMACDMail(@QueryParam("targetDate") String targetDate) {
+		
+		QuoteApplication objQuoteApplication = new QuoteApplication();
+		objQuoteApplication.invokeAction("combinedFromMACD", targetDate);
+		return Response.status(200).entity("Success").build();
+		//return Response.status(200).entity("Success").build();
+	}
+	
+	@GET
+	@Path("/GenerateCombinedIndicationFromMACDPortal")
+	@Produces("text/plain")
+	public Response GenerateCombinedIndicationFromMACDPortal(@QueryParam("targetDate") String targetDate) {
+		
+		QuoteApplication objQuoteApplication = new QuoteApplication();
+		objQuoteApplication.invokeAction("combinedFromMACDForPortal", targetDate);
+		return Response.status(200).entity("Success").build();
 		//return Response.status(200).entity("Success").build();
 	}
 	
